@@ -13,9 +13,13 @@ def findKeys(file):
     
     obj = json.loads(data)
     
+    keylist = list()
+    
     # get the keys in the file and put them in a list
     for x in obj:
-        list = x.keys()
+        for i in x.keys():
+            keylist.append(i)
+            
         break
     
-    return list
+    return keylist
