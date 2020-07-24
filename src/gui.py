@@ -20,7 +20,6 @@ class parserGUI:
 		ttk.Label(self.mainframe, text= "Key to search:  ").grid(column = 0 , row = 0, sticky=(N,W))
 		self.keysearch = StringVar()
 		self.key_search = ttk.Combobox(self.mainframe, textvariable = self.keysearch)
-		self.key_search.bind('<<ComboboxSelected>>', self.find)
 		self.key_search['values'] = self.keylist
 		self.key_search.grid(column = 1, row = 0)
 		
@@ -28,21 +27,21 @@ class parserGUI:
 		ttk.Label(self.mainframe, text= "Key to extract:  ").grid(column = 0, row = 1, sticky=(N,W))
 		self.keyextract = StringVar()
 		self.key_extract = ttk.Combobox(self.mainframe, textvariable = self.keyextract)
-		self.key_extract.bind('<<ComboboxSelected>>', self.find)
 		self.key_extract['values'] = self.keylist
 		self.key_extract.grid(column = 1, row = 1)
 		
-		self.search = self.key_search.current(0)
-		self.extract = self.key_extract.current(0)
 		
+		self.search_button = ttk.Button(self.mainframe, text = "Search", command = self.find)
+		self.search_button.grid(column = 0, row = 2)
+		self.file = master.filename
 		
 	
-	def find(self, event):
+	def find(self):
 		self.search = self.key_search.get()
 		self.extract = self.key_extract.get()
 		
-		print(self.search)
-		print(self.extract)
+		parser.parse(self.file, self.search, self.extract)
+		
 		
 	
 

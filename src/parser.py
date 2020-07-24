@@ -22,7 +22,24 @@ def findKeys(file):
             
         break
     
+    parse_file = file
+    
     return keylist
 
+
+def parse(file, search, extract):
+    # ask for json file
+    jsonfile = file
+    type(jsonfile)
+    
+    
+    # open and read json file
+    with open (jsonfile) as myfile:
+        data = myfile.read()
+    
+    obj = json.loads(data)
+
+    for x in obj:
+        print (x[extract])
     
     
