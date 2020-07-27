@@ -31,32 +31,39 @@ class parserGUI:
 		self.key_extract['values'] = self.keylist
 		self.key_extract.grid(column = 1, row = 1)
 		
+		self.input = ttk.Label(self.mainframe, text="Content to look for: ")
+		self.input.grid(column = 0, row = 2)
+		
+		self.user_string = StringVar()
+		self.string_input = ttk.Entry(self.mainframe, textvariable = self.user_string)
+		self.string_input.grid(column = 1, row = 2)
+		
 		
 		self.search_button = ttk.Button(self.mainframe, text = "Search", command = self.find)
-		self.search_button.grid(column = 0, row = 2)
+		self.search_button.grid(column = 0, row = 3, sticky = (W))
 		self.file = master.filename
 		
 		self.results = tk.Text(self.master, height = 5, width = 50)
-		self.results.grid(column = 0, row = 3, sticky=(N,S,E,W))
+		self.results.grid(column = 0, row = 4, sticky=(N,S,E,W))
 		
 		self.scroll = ttk.Scrollbar(self.master, command = self.results.yview)
-		self.scroll.grid(column = 1, row = 3, sticky=(N,S,E,W))
+		self.scroll.grid(column = 1, row = 4, sticky=(N,S,E,W))
 		self.results['yscrollcommand'] = self.scroll.set
 		
 	
 	def find(self):
 		self.search = self.key_search.get()
 		self.extract = self.key_extract.get()
+		uinput = self.user_string.get()
 		
-		self.content = parser.parse(self.file, self.search, self.extract)
+		self.content = parser.parse(self.file, self.search, self.extract, uinput)
+		
+		self.results.delete(1.0, tk.END)
 		
 		for x in self.content:
 			self.results.insert(tk.END, x + '\n')
 			
 		
-		
-	
-
 root = Tk()
 my_gui = parserGUI(root)
 root.mainloop()

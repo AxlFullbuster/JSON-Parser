@@ -27,9 +27,9 @@ def findKeys(file):
     return keylist
 
 
-def parse(file, search, extract):
+def parse(file, search, extract, uinput):
     # ask for json file
-    jsonfile = file
+    jsonfile = file 
     type(jsonfile)
     
     
@@ -41,8 +41,11 @@ def parse(file, search, extract):
 
     contents = list()
     
-    for x in obj:
-        contents.append(x[extract])
+    if uinput:
+        contents = [x[extract] for x in obj if x[search] == uinput]
+    else:
+        for x in obj:
+            contents.append(x[extract])
         
     return contents
     
