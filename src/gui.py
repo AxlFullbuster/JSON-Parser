@@ -1,6 +1,7 @@
 import parser
 from tkinter import *
 from tkinter import ttk
+import tkinter as tk
 from tkinter import filedialog
 
 
@@ -9,7 +10,7 @@ class parserGUI:
 		self.master = master
 		master.title("JSON Parser")
 		
-		self.mainframe = ttk.Frame(master, padding="5 5 12 12")
+		self.mainframe = ttk.Frame(self.master, padding="5 5 12 12")
 		self.mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 		master.columnconfigure(0, weight=1)
 		master.rowconfigure(0, weight=1)
@@ -35,12 +36,23 @@ class parserGUI:
 		self.search_button.grid(column = 0, row = 2)
 		self.file = master.filename
 		
+		self.results = tk.Text(self.master, height = 5, width = 50)
+		self.results.grid(column = 0, row = 3, sticky=(N,S,E,W))
+		
+		self.scroll = ttk.Scrollbar(self.master, command = self.results.yview)
+		self.scroll.grid(column = 1, row = 3, sticky=(N,S,E,W))
+		self.results['yscrollcommand'] = self.scroll.set
+		
 	
 	def find(self):
 		self.search = self.key_search.get()
 		self.extract = self.key_extract.get()
 		
-		parser.parse(self.file, self.search, self.extract)
+		self.content = parser.parse(self.file, self.search, self.extract)
+		
+		for x in self.content:
+			self.results.insert(tk.END, x + '\n')
+			
 		
 		
 	

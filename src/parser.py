@@ -39,7 +39,11 @@ def parse(file, search, extract):
     
     obj = json.loads(data)
 
+    contents = list()
+    
     for x in obj:
-        print (x[extract])
+        contents.append(x[extract])
+        
+    return contents
     
     
