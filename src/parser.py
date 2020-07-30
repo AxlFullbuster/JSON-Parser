@@ -1,52 +1,40 @@
 import json
+import difflib
 
-
-def findKeys(file):
-    # ask for json file
-    jsonfile = file
-    type(jsonfile)
-    
-    
-    # open and read json file
-    with open (jsonfile) as myfile:
-        data = myfile.read()
-    
-    obj = json.loads(data)
-    
-    keylist = list()
-    
-    # get the keys in the file and put them in a list
-    for x in obj:
-        for i in x.keys():
-            keylist.append(i)
-            
-        break
-    
-    parse_file = file
-    
-    return keylist
-
-
-def parse(file, search, extract, uinput):
-    # ask for json file
-    jsonfile = file 
-    type(jsonfile)
-    
-    
-    # open and read json file
-    with open (jsonfile) as myfile:
-        data = myfile.read()
-    
-    obj = json.loads(data)
-
-    contents = list()
-    
-    if uinput:
-        contents = [x[extract] for x in obj if x[search] == uinput]
-    else:
-        for x in obj:
-            contents.append(x[extract])
+class FileParser:
+    def __init__(self, file):
+        jsonfile = file
+        type(jsonfile)
         
-    return contents
+        with open (jsonfile) as myfile:
+            data = myfile.read()
+            
+        self.obj = json.loads(data)
+        
+    def findKeys(self):
+        keylist = list()
+        
+        # get the keys in the file and put them in a list
+        for x in self.obj:
+            for i in x.keys():
+                keylist.append(i)
+                
+            break
+        
+        
+        return keylist
     
+    
+    def parse(self, search, extract, uinput):
+        matches = difflib.get_close_matches(uinput, [x[search] for x in self.obj])
+        contents = list()
+        
+        if uinput:
+            contents = [x[extract] for x in self.obj if x[search] in matches]
+        else:
+            for x in self.obj:
+                contents.append(x[extract])
+            
+        return contents
+        
     
