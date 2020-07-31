@@ -34,6 +34,9 @@ class FileParser:
         else:
             for x in self.obj:
                 contents.append(x[extract])
+                
+                if len(contents) >= 10:
+                    break
             
         return contents
         
