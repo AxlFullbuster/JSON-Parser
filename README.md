@@ -52,5 +52,5 @@ file.
 Note that this project was created and tested on a Linux machine so YMMV on other operating systems.
 
 # References
-[TkDocs](https://tkdocs.com/index.html) Walks you through installing tiknter and working with the basic widgets. It
+[TkDocs](https://tkdocs.com/index.html) Walks you through installing tkinter and working with the basic widgets. It
 was very helpful as I had no experience making a user interface in python prior to this project.
